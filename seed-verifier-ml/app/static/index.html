@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<body style="font-family:sans-serif; text-align:center; background:#f4f4f4;">
+    <div style="background:white; display:inline-block; padding:40px; margin-top:50px; border-radius:15px;">
+        <h2>Seed Verifier v15</h2>
+        <input type="file" id="f"><br><br>
+        <button onclick="check()" style="padding:10px 20px;">Verify Seed</button>
+        <h3 id="r"></h3>
+    </div>
+    <script>
+        async function check() {
+            const d = new FormData(); d.append('file', document.getElementById('f').files[0]);
+            const res = await fetch('/predict', {method:'POST', body:d});
+            const j = await res.json();
+            document.getElementById('r').innerText = j.result + " (Score: " + j.score + ")";
+        }
+    </script>
+</body>
+</html>
